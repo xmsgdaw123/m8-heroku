@@ -1,5 +1,5 @@
 <?php
-	include 'lib/con.php';
+	include 'lib/connection.php';
 
 
 
@@ -38,7 +38,7 @@
 				$_SESSION['id']=$id;
 				setcookie('email',$email,time()+1800,'/todo','');
 				//redirect
-				header('Location: /todo/list.php',true,303);
+				header('Location: ./list.php',true,303);
 				exit;
 				}
 				else{

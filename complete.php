@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'lib/con.php';
+	include 'lib/connection.php';
 
 	//preparing statement
 	$stmt=$conn->prepare("UPDATE tasks SET completed=1 WHERE user=? AND id=?");

@@ -1,6 +1,11 @@
 <?php
+require __DIR__ . './vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 	session_start();
-	include 'lib/con.php';
+	include 'lib/connection.php';
 	//preparing statement
 	if(!empty($_POST)){
 		if(!(empty($_POST['email'])) && !(empty($_POST['passw']))){

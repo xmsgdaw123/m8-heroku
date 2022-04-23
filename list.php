@@ -1,15 +1,15 @@
 <?php
 	session_start();
-	include 'lib/con.php';
+	include 'lib/connection.php';
 
+	$email = (string)$_SESSION['email'];
 	//preparing statement
 	try{
-	$stmt=$conn->prepare("SELECT  t.id,t.descr, t.data, t.completed
-	 FROM users LEFT JOIN tasks t ON t.user = users.id WHERE users.email=? ");
+	$stmt=$conn->prepare("SELECT t.id,t.descr, t.data, t.completed FROM users LEFT JOIN tasks t ON t.user = users.id WHERE users.email = ?");
 
-		  $stmt->bind_param('s',$_SESSION['email']);
+		  $stmt->bind_param('s',$email);
 	 		$stmt->execute();
-	 		$stmt->bind_result($id,$desc,$dates,$completed);
+	 		$stmt->bind_result($id,$descr,$dates,$completed);
 
 	}catch(Exception $e){
 	 echo $e->getMessage();
@@ -59,7 +59,7 @@
 				while($stmt->fetch()){
 					$timestamp=strtotime($dates);
 					echo '<tr>';
-					echo '<td>'.($completed==0?'':'<del>').$desc.($completed==0?'':'</del>').'</td>';
+					echo '<td>'.($completed==0?'':'<del>').$descr.($completed==0?'':'</del>').'</td>';
 					echo '<td>'.date("d-m-Y H:i:s", $timestamp).'</td>';
 					echo '<td>'.($completed==0?'No':'Si').'</td>';
 					echo '<td><a href="complete.php?task='.$id.'"><button type="button" class="btn btn-info">Complete</button></a></td>';
